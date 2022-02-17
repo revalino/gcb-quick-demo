@@ -6,15 +6,15 @@ steps:
   - name: gcr.io/$PROJECT_ID/sharingsongs:$SHORT_SHA
     entrypoint: python
     args: ["-m","pytest","unit_tests.py"]
-  # Push docker image and save image digest for kritis check
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/sharingsongs:$SHORT_SHA']
   # Verify code with sonarqube - Quality gate
   - name: 'gcr.io/$PROJECT_ID/sonar-scanner:latest'
     entrypoint: 'bash'
     args:
     - -c
     - /launch.sh -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$$SONAR_TOKEN -Dsonar.projectKey=$$SONAR_PROJECT_KEY -Dsonar.organization=$$SONAR_ORG -Dsonar.sources=./app -Dsonar.qualitygate.wait=false
+  # Push docker image and save image digest for kritis check
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/sharingsongs:$SHORT_SHA']
   # Deploy container image to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['run', 'deploy', 'sharingsongs',
