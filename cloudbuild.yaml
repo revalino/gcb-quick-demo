@@ -1,7 +1,7 @@
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '.', '-t', 'gcr.io/$PROJECT_ID/sharingsongs:$SHORT_SHA', '.']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/sharingsongs:$SHORT_SHA', '.']
   # Run unit tests
   - name: gcr.io/$PROJECT_ID/sharingsongs:$SHORT_SHA
     entrypoint: python
