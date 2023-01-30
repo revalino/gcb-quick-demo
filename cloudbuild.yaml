@@ -1,6 +1,7 @@
 steps:
   # Run unit tests
-  - name: gcr.io/$PROJECT_ID/sharingsongs:$SHORT_SHA
+#  - name: gcr.io/$PROJECT_ID/sharingsongs:$SHORT_SHA
+  - name: python
     entrypoint: python
     args: ["-m","pytest","unit_tests.py"]
   # Verify code with sonarqube - Quality gate
