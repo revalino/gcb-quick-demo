@@ -7,5 +7,5 @@ def test_hello():
     response = client.get("/")
 
     assert (response.status_code == 200)
-    assert ("Node.js" in str(response.data))
+    assert ("Python" in str(response.data))
 
